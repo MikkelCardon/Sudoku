@@ -30,7 +30,7 @@ public class Storage {
 
 
     public static ArrayList<Cell> getAllCells(){
-        return  new ArrayList<>(allCells);
+        return new ArrayList<>(allCells);
     }
 
     /*                  */

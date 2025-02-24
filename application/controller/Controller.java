@@ -13,6 +13,52 @@ public class Controller {
 
     }
 
+    private static ArrayList<Cell> cells = new ArrayList<>();
+
+    public static void run(){
+        cells = Storage.getAllCells();
+        int cellNumber = findNext(-1);
+
+        while(cellNumber <= cells.size()){
+
+
+            int newNumb = nextNumber(cells.get(cellNumber));
+
+            if (newNumb == -1){
+                cells.get(cellNumber).setDefault();
+                cellNumber = findPrevious(cellNumber);
+            } else{
+                cells.get(cellNumber).setValue(newNumb);
+                cellNumber = findNext(cellNumber);
+                if (cellNumber == -1){
+                    return;
+                }
+            }
+        }
+    }
+
+    public static int findNext(int cellNumber){
+        cellNumber++;
+        while(cellNumber < cells.size() && cells.get(cellNumber).isFixed()){
+            cellNumber++;
+        }
+
+        if(cellNumber >= cells.size()){
+            return -1;
+        }
+        return cellNumber;
+    }
+
+    public static int findPrevious(int cellNumber){
+        cellNumber--;
+        while(cells.get(cellNumber).isFixed()){
+            cellNumber--;
+        }
+        return cellNumber;
+    }
+
+
+
     public static int nextNumber(Cell cell){
         ArrayList<Integer> numbers = new ArrayList<>();
 
@@ -38,11 +84,12 @@ public class Controller {
                     int number = eachCell.getValue();
                     numbers.add(number);
                 }
+                break;
             }
         }
         int newNumb = -1;
-        for (int i = 0; i < 11; i++) {
-            if (!numbers.contains(i)){
+        for (int i = 1; i < 11; i++) {
+            if (!numbers.contains(i) && i > cell.getValue()){
                 newNumb = i;
                 break;
             }

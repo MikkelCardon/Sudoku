@@ -15,14 +15,16 @@ public class App {
         initStorage();
         //Application.launch(PrimaryWindow.class);
         //TODO: Fjern kommentering når GUI skal køre
+
+        Controller.run();
+
+
         for (ArrayList<Cell> row : Storage.getRows()) {
             for (Cell cell : row) {
                 System.out.print(cell + " ");
             }
             System.out.println();
         }
-        Cell cell = Storage.getAllCells().getFirst();
-        System.out.println("Controller.nextNumber(cell) = " + Controller.nextNumber(cell));
     }
 
     private static void initStorage() throws FileNotFoundException {

@@ -11,7 +11,7 @@ public class SetBoard {
         ArrayList<Cell> row0 = Storage.getRows().get(0);
         row0.get(0).setValuePredefined(); row0.get(1).setValuePredefined(); row0.get(2).setValuePredefined();
         row0.get(3).setValuePredefined(3); row0.get(4).setValuePredefined(1); row0.get(5).setValuePredefined(2);
-        row0.get(6).setValuePredefined(3); row0.get(7).setValuePredefined(); row0.get(8).setValuePredefined();
+        row0.get(6).setValuePredefined(4); row0.get(7).setValuePredefined(); row0.get(8).setValuePredefined();
 
 // ROW 1
         ArrayList<Cell> row1 = Storage.getRows().get(1);
