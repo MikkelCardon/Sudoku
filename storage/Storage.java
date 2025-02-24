@@ -33,6 +33,10 @@ private static ArrayList<ArrayList<Cell>> regions = new ArrayList<>();
         rows.add(column);
     }
 
+    public static void addRegion(ArrayList<Cell> newList){
+        regions.add(newList);
+    }
+
     public static void addToRegion(Cell cell, int region){
         regions.get(region).add(cell);
     }

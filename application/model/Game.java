@@ -44,15 +44,20 @@ public class Game {
             }
             Storage.addToColumn(newColumn);
         }
-
     }
 
 
 
-    public static void generateRegions(){
-        //ToDo: skal gemmes i Storage.
-        for (Cell allCell : allCells) {
+    public static void generateRegions() {
+        for (int i = 0; i < 9; i++) {
+            Storage.addRegion(new ArrayList<>());
+        }
 
+
+        for (Cell cell : allCells) {
+            int region = (cell.getRow() / 3) * 3 + (cell.getColumn() / 3);
+            Storage.addToRegion(cell, region);
         }
     }
+
 }
