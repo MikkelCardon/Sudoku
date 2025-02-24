@@ -1,7 +1,7 @@
 package application.model;
 
 public class Cell {
-    String value = "*";
+    int value = 0;
     boolean isFixed = false;
 
     int row;
@@ -12,22 +12,22 @@ public class Cell {
         this.column = column;
     }
 
-    public String getValue() {
+    public int getValue() {
         return value;
     }
 
     public void setDefault() {
-        value = "*";
+        value = 0;
     }
     public void setValue(int value) {
-        this.value = String.valueOf(value);
+        this.value = value;
     }
 
     public void setValuePredefined() {
     }
 
     public void setValuePredefined(int value) {
-        this.value = String.valueOf(value);
+        this.value = value;
         isFixed = true;
     }
 
@@ -49,6 +49,6 @@ public class Cell {
 
     @Override
     public String toString(){
-        return value;
+        return String.valueOf(value);
     }
 }

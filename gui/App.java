@@ -21,6 +21,8 @@ public class App {
             }
             System.out.println();
         }
+        Cell cell = Storage.getAllCells().getFirst();
+        System.out.println("Controller.nextNumber(cell) = " + Controller.nextNumber(cell));
     }
 
     private static void initStorage() throws FileNotFoundException {
