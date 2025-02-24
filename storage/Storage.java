@@ -30,7 +30,7 @@ private static ArrayList<ArrayList<Cell>> regions = new ArrayList<>();
     }
 
     public static void addToColumn(ArrayList<Cell> column){
-        rows.add(column);
+        columns.add(column);
     }
 
     public static void addRegion(ArrayList<Cell> newList){

@@ -9,14 +9,17 @@ public class Game {
 
     public Game() {
         createCells();
+
+        createRows();
+        generateRegions();
     }
 
     private static ArrayList<Cell> allCells = new ArrayList<>();
 
     private void createCells() {
-        for (int colum = 0; colum < 9; colum++) {
-            for (int row = 0; row < 9; row++) {
-                Cell newCell = new Cell(row, colum);
+        for (int row = 0; row < 9; row++) {
+            for (int column = 0; column < 9; column++) {
+                Cell newCell = new Cell(row, column);
                 allCells.add(newCell);
             }
         }
@@ -48,7 +51,7 @@ public class Game {
 
 
 
-    public static void generateRegions() {
+    public void generateRegions() {
         for (int i = 0; i < 9; i++) {
             Storage.addRegion(new ArrayList<>());
         }
