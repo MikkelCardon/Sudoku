@@ -14,6 +14,9 @@ public class App {
         initStorage();
         //Application.launch(PrimaryWindow.class);
         //TODO: Fjern kommentering når GUI skal køre
+        for (ArrayList<Cell> region : Storage.getRegions()) {
+            System.out.println(region.size());
+        }
     }
 
     private static void initStorage() throws FileNotFoundException {

@@ -23,6 +23,7 @@ public class Game {
                 allCells.add(newCell);
             }
         }
+        Storage.setAllCells(allCells);
     }
 
     private void createRows(){
