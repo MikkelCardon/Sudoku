@@ -16,8 +16,19 @@ public class Cell {
         return value;
     }
 
-    public void setValue(String value) {
-        this.value = value;
+    public void setDefault() {
+        value = "*";
+    }
+    public void setValue(int value) {
+        this.value = String.valueOf(value);
+    }
+
+    public void setValuePredefined() {
+    }
+
+    public void setValuePredefined(int value) {
+        this.value = String.valueOf(value);
+        isFixed = true;
     }
 
     public boolean isFixed() {
