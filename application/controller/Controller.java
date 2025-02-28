@@ -101,9 +101,5 @@ public class Controller {
         return newNumb;
     }
 
-    public static boolean acceptInput(){
-        return false;
-    }
-
 
 }

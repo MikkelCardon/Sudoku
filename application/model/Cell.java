@@ -27,6 +27,8 @@ public class Cell {
     }
 
     public void setValuePredefined(int value) {
+        if (value == 0) return;
+
         this.value = value;
         isFixed = true;
     }
@@ -47,8 +49,17 @@ public class Cell {
         return column;
     }
 
+    public String color(){
+        if (isFixed){
+            return "\u001B[0m";
+        } else return "\u001B[31m";
+    }
+
     @Override
     public String toString(){
-        return String.valueOf(value);
+        if (value == 0) return "*";
+
+        String sValue = String.valueOf(value);
+        return color() + sValue;
     }
 }
