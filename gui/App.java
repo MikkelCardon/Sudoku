@@ -14,13 +14,25 @@ public class App {
     public static void main(String[] args) throws FileNotFoundException {
         initStorage();
         //Application.launch(PrimaryWindow.class);
-        //TODO: Fjern kommentering når GUI skal køre
+
+        printBoard();
 
         Controller.run();
 
+        System.out.println("\n ********SOLVED************");
+        printBoard();
+    }
 
-        for (ArrayList<Cell> row : Storage.getRows()) {
+    private static void printBoard(){
+        ArrayList<ArrayList<Cell>> rows = Storage.getRows();
+
+        for (ArrayList<Cell> row : rows) {
+            if (rows.indexOf(row) % 3 == 0 && rows.indexOf(row) != 0)
+                System.out.println("----------------------");
+
             for (Cell cell : row) {
+                if (cell.getColumn() % 3 == 0 && cell.getColumn() != 0)
+                    System.out.print("| ");
                 System.out.print(cell + " ");
             }
             System.out.println();
