@@ -57,7 +57,7 @@ public class Cell {
 
     @Override
     public String toString(){
-        if (value == 0) return "*";
+        if (value == 0) return "\u001B[31m" + "*" + "\u001B[0m";
 
         String sValue = String.valueOf(value);
         return color() + sValue;
