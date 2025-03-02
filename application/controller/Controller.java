@@ -26,7 +26,7 @@ public class Controller {
 
 
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(250), actionEvent ->{
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), actionEvent ->{
             int newNumb = nextNumber(cells.get(cellNumber[0]));
 
             if (newNumb == -1){

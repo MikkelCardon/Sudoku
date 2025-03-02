@@ -8,12 +8,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import storage.Storage;
 
 import java.util.ArrayList;
 
 import static application.controller.Controller.run;
+
 
 public class PrimaryWindow extends Application {
     @Override
@@ -39,17 +41,28 @@ public class PrimaryWindow extends Application {
 
         for (Cell cell : Storage.getAllCells()) {
             Label cellLable = new Label(String.valueOf(cell.getValue()));
-            pane.add(cellLable, cell.getRow(), cell.getColumn());
+            pane.add(cellLable, cell.getColumn(), cell.getRow());
             labelArrayList.add(cellLable);
+            cellLable.setStyle("-fx-font-size: 11px; -fx-font-weight: bold;");
         }
     }
     public static void updateLabels(){
         ArrayList<Cell> cells = Storage.getAllCells();
 
         for (int i = 0; i < labelArrayList.size(); i++) {
-            String value = String.valueOf(cells.get(i).getValue());
-           labelArrayList.get(i).setText(value);
+            Cell cell = cells.get(i);
+            String value = String.valueOf(cell.getValue());
+
+            Label label = labelArrayList.get(i);
+            label.setText(value);
+            label.setTextFill(getColor(cell));
         }
+    }
+
+    private static Color getColor(Cell cell){
+        if (cell.isFixed()){
+            return Color.BLACK;
+        } else return Color.GREEN;
     }
 }
 
