@@ -30,22 +30,17 @@ public class PrimaryWindow extends Application {
     private static ArrayList<Label> labelArrayList = new ArrayList<>();
 
 
-    private void initContent(GridPane pane) {
-        pane.setHgap(10);
-        pane.setVgap(10);
+    private void initContent(GridPane boardPane) {
+        boardPane.setHgap(10);
+        boardPane.setVgap(10);
 
         Button runProgram = new Button("RUN");
         runProgram.setOnAction(actionEvent -> run());
-        pane.add(runProgram, 12, 0);
+        boardPane.add(runProgram, 12, 0);
 
-
-        for (Cell cell : Storage.getAllCells()) {
-            Label cellLable = new Label(String.valueOf(cell.getValue()));
-            pane.add(cellLable, cell.getColumn(), cell.getRow());
-            labelArrayList.add(cellLable);
-            cellLable.setStyle("-fx-font-size: 11px; -fx-font-weight: bold;");
-        }
+        Layout.initBoardLayout(boardPane);
     }
+
     public static void updateLabels(){
         ArrayList<Cell> cells = Storage.getAllCells();
 
@@ -63,6 +58,10 @@ public class PrimaryWindow extends Application {
         if (cell.isFixed()){
             return Color.BLACK;
         } else return Color.GREEN;
+    }
+
+    public static ArrayList<Label> getLabelArrayList() {
+        return labelArrayList;
     }
 }
 
