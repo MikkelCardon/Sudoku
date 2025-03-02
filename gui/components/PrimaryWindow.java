@@ -1,10 +1,21 @@
 package gui.components;
 
 
+import application.controller.Controller;
+import application.model.Cell;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import storage.Storage;
+
+import java.util.ArrayList;
+
+import static application.controller.Controller.run;
+
 
 public class PrimaryWindow extends Application {
     @Override
@@ -16,41 +27,51 @@ public class PrimaryWindow extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+    private static ArrayList<Label> labelArrayList = new ArrayList<>();
+    private static Label amountOperations;
 
-//    private ObservableList<Hold> holdObservableList;
-//    private ListView<Hold> holdListView;
+    private void initContent(GridPane boardPane) {
+        boardPane.setHgap(10);
+        boardPane.setVgap(10);
 
-    /* ------ */
+        Button runProgram = new Button("RUN");
+        runProgram.setOnAction(actionEvent -> run());
+        boardPane.add(runProgram, 12, 0);
 
-    private void initContent(GridPane pane) {
-        pane.setHgap(10);
-        pane.setVgap(10);
+        Label op = new Label("Operations:");
+        boardPane.add(op, 12, 1);
 
-//        holdObservableList = Storage.getHoldAsObservableList();
-//        holdListView = new ListView<>(holdObservableList);
+        amountOperations = new Label("0");
+        boardPane.add(amountOperations, 12, 2);
 
-//        ChangeListener<Hold> listenerHold = (ov, oldHold, newHold) -> this.selectedHold(newHold);
-//        holdListView.getSelectionModel().selectedItemProperty().addListener(listenerHold);
-
-
-//    private void selectedHold(Hold newHold) {
-//        selectedHold = newHold;
-//        setDeltagere();
-//    }
-
-//    private void setDeltagere(){
-//        deltagerListView.getItems().setAll(selectedHold.getDeltagere());
-//    }
-
-//    private void selectedDeltager(Deltager newDeltager) {
-//        selectedDeltager = newDeltager;
-//        turListView.getItems().setAll(selectedDeltager.getTure());
-//
-//        deltagerLbl.setText("Valgte deltager" + selectedDeltager.getNavn());
-//        kmIAlt.setText("Km i alt: " + selectedDeltager.kmIAlt());
-//        minIAlt.setText("Min i alt: " + selectedDeltager.minIAlt());
-//    }
-
+        Layout.initBoardLayout(boardPane);
     }
+    private static int operations = 0;
+
+    public static void updateLabels(){
+        ArrayList<Cell> cells = Storage.getAllCells();
+
+        for (int i = 0; i < labelArrayList.size(); i++) {
+            Cell cell = cells.get(i);
+            String value = String.valueOf(cell.toString());
+
+            Label label = labelArrayList.get(i);
+
+            label.setText(value);
+            label.setTextFill(getColor(cell));
+        }
+        amountOperations.setText(String.valueOf(operations++));
+    }
+
+    private static Color getColor(Cell cell){
+        if (cell.isFixed()){
+            return Color.BLACK;
+        } else return Color.GREEN;
+    }
+
+    public static ArrayList<Label> getLabelArrayList() {
+        return labelArrayList;
+    }
+
 }
 

@@ -49,14 +49,20 @@ public class Cell {
         return column;
     }
 
+
+    @Override
+    public String toString(){
+        if (value == 0) return "*";
+        return String.valueOf(value);
+    }
+
     public String color(){
         if (isFixed){
             return "\u001B[0m";
         } else return "\u001B[31m";
     }
 
-    @Override
-    public String toString(){
+    public String toStringConsole(){
         if (value == 0) return "\u001B[31m" + "*" + "\u001B[0m";
 
         String sValue = String.valueOf(value);

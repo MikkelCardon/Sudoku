@@ -2,6 +2,11 @@ package application.controller;
 
 import application.model.Cell;
 import application.model.Game;
+import gui.components.PrimaryWindow;
+import javafx.animation.AnimationTimer;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import storage.Storage;
 
 import java.util.ArrayList;
@@ -16,26 +21,51 @@ public class Controller {
     private static ArrayList<Cell> cells = new ArrayList<>();
 
     public static void run(){
+        runProgram();
+        PrimaryWindow.updateLabels();
+    }
+
+    public static void runProgram(){
         cells = Storage.getAllCells();
-        int cellNumber = findNext(-1);
-
-        while(cellNumber <= cells.size()){
+        final int[] cellNumber = {findNext(-1)};
 
 
-            int newNumb = nextNumber(cells.get(cellNumber));
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(0.5), actionEvent ->{
+            if (cellNumber[0] >= cells.size()) return;
+            int newNumb = nextNumber(cells.get(cellNumber[0]));
 
             if (newNumb == -1){
-                cells.get(cellNumber).setDefault();
-                cellNumber = findPrevious(cellNumber);
+                cells.get(cellNumber[0]).setDefault();
+                cellNumber[0] = findPrevious(cellNumber[0]);
             } else{
-                cells.get(cellNumber).setValue(newNumb);
-                cellNumber = findNext(cellNumber);
-                if (cellNumber == -1){
+                cells.get(cellNumber[0]).setValue(newNumb);
+                cellNumber[0] = findNext(cellNumber[0]);
+                if (cellNumber[0] == -1){
                     return;
                 }
             }
-        }
+            PrimaryWindow.updateLabels();
+        })
+        );
+
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
+        // Check condition to stop the timeline
+        AnimationTimer checker = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                if (cellNumber[0] == -1 || cellNumber[0] >= cells.size()) {
+                    timeline.stop();
+                    this.stop();
+                }
+            }
+        };
+        checker.start();
     }
+
+
 
     public static int findNext(int cellNumber){
         cellNumber++;
@@ -43,7 +73,7 @@ public class Controller {
             cellNumber++;
         }
 
-        if(cellNumber >= cells.size()){
+        if(cellNumber > cells.size()){
             return -1;
         }
         return cellNumber;
