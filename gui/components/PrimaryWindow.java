@@ -28,7 +28,7 @@ public class PrimaryWindow extends Application {
         primaryStage.show();
     }
     private static ArrayList<Label> labelArrayList = new ArrayList<>();
-
+    private static Label amountOperations;
 
     private void initContent(GridPane boardPane) {
         boardPane.setHgap(10);
@@ -38,20 +38,29 @@ public class PrimaryWindow extends Application {
         runProgram.setOnAction(actionEvent -> run());
         boardPane.add(runProgram, 12, 0);
 
+        Label op = new Label("Operations:");
+        boardPane.add(op, 12, 1);
+
+        amountOperations = new Label("0");
+        boardPane.add(amountOperations, 12, 2);
+
         Layout.initBoardLayout(boardPane);
     }
+    private static int operations = 0;
 
     public static void updateLabels(){
         ArrayList<Cell> cells = Storage.getAllCells();
 
         for (int i = 0; i < labelArrayList.size(); i++) {
             Cell cell = cells.get(i);
-            String value = String.valueOf(cell.getValue());
+            String value = String.valueOf(cell.toString());
 
             Label label = labelArrayList.get(i);
+
             label.setText(value);
             label.setTextFill(getColor(cell));
         }
+        amountOperations.setText(String.valueOf(operations++));
     }
 
     private static Color getColor(Cell cell){
@@ -63,5 +72,6 @@ public class PrimaryWindow extends Application {
     public static ArrayList<Label> getLabelArrayList() {
         return labelArrayList;
     }
+
 }
 

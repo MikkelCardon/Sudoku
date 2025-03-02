@@ -52,6 +52,7 @@ public class Cell {
 
     @Override
     public String toString(){
+        if (value == 0) return "*";
         return String.valueOf(value);
     }
 

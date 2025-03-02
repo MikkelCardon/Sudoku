@@ -21,12 +21,18 @@ public class Controller {
     private static ArrayList<Cell> cells = new ArrayList<>();
 
     public static void run(){
+        runProgram();
+        PrimaryWindow.updateLabels();
+    }
+
+    public static void runProgram(){
         cells = Storage.getAllCells();
         final int[] cellNumber = {findNext(-1)};
 
 
 
-        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(50), actionEvent ->{
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(0.5), actionEvent ->{
+            if (cellNumber[0] >= cells.size()) return;
             int newNumb = nextNumber(cells.get(cellNumber[0]));
 
             if (newNumb == -1){
@@ -67,7 +73,7 @@ public class Controller {
             cellNumber++;
         }
 
-        if(cellNumber >= cells.size()){
+        if(cellNumber > cells.size()){
             return -1;
         }
         return cellNumber;
