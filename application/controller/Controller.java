@@ -3,6 +3,7 @@ package application.controller;
 import application.model.Cell;
 import application.model.Game;
 import gui.components.PrimaryWindow;
+import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.util.Duration;
@@ -42,7 +43,23 @@ public class Controller {
         })
         );
 
+        timeline.setCycleCount(Timeline.INDEFINITE);
+        timeline.play();
+
+        // Check condition to stop the timeline
+        AnimationTimer checker = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                if (cellNumber[0] == -1 || cellNumber[0] >= cells.size()) {
+                    timeline.stop();
+                    this.stop();
+                }
+            }
+        };
+        checker.start();
     }
+
+
 
     public static int findNext(int cellNumber){
         cellNumber++;
