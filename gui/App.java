@@ -13,11 +13,9 @@ import java.util.ArrayList;
 public class App {
     public static void main(String[] args) throws FileNotFoundException {
         initStorage();
-        Application.launch(PrimaryWindow.class);
-
         printBoard();
-
-        Controller.run();
+        Application.launch(PrimaryWindow.class);
+        //Controller.run();
 
         System.out.println("\n ********SOLVED************");
         printBoard();

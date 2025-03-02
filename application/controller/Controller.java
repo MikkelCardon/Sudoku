@@ -2,6 +2,10 @@ package application.controller;
 
 import application.model.Cell;
 import application.model.Game;
+import gui.components.PrimaryWindow;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.util.Duration;
 import storage.Storage;
 
 import java.util.ArrayList;
@@ -17,24 +21,27 @@ public class Controller {
 
     public static void run(){
         cells = Storage.getAllCells();
-        int cellNumber = findNext(-1);
-
-        while(cellNumber <= cells.size()){
+        final int[] cellNumber = {findNext(-1)};
 
 
-            int newNumb = nextNumber(cells.get(cellNumber));
+
+        Timeline timeline = new Timeline(new KeyFrame(Duration.millis(250), actionEvent ->{
+            int newNumb = nextNumber(cells.get(cellNumber[0]));
 
             if (newNumb == -1){
-                cells.get(cellNumber).setDefault();
-                cellNumber = findPrevious(cellNumber);
+                cells.get(cellNumber[0]).setDefault();
+                cellNumber[0] = findPrevious(cellNumber[0]);
             } else{
-                cells.get(cellNumber).setValue(newNumb);
-                cellNumber = findNext(cellNumber);
-                if (cellNumber == -1){
+                cells.get(cellNumber[0]).setValue(newNumb);
+                cellNumber[0] = findNext(cellNumber[0]);
+                if (cellNumber[0] == -1){
                     return;
                 }
             }
-        }
+            PrimaryWindow.updateLabels();
+        })
+        );
+
     }
 
     public static int findNext(int cellNumber){
