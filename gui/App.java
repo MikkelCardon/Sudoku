@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class App {
     public static void main(String[] args) throws FileNotFoundException {
         initStorage();
-        //Application.launch(PrimaryWindow.class);
+        Application.launch(PrimaryWindow.class);
 
         printBoard();
 

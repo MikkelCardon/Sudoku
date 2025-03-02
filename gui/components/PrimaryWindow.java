@@ -1,10 +1,15 @@
 package gui.components;
 
 
+import application.model.Cell;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import storage.Storage;
+
+import java.util.ArrayList;
 
 public class PrimaryWindow extends Application {
     @Override
@@ -16,40 +21,19 @@ public class PrimaryWindow extends Application {
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-
-//    private ObservableList<Hold> holdObservableList;
-//    private ListView<Hold> holdListView;
-
-    /* ------ */
+    ArrayList<Label> cells = new ArrayList<>();
 
     private void initContent(GridPane pane) {
         pane.setHgap(10);
         pane.setVgap(10);
 
-//        holdObservableList = Storage.getHoldAsObservableList();
-//        holdListView = new ListView<>(holdObservableList);
-
-//        ChangeListener<Hold> listenerHold = (ov, oldHold, newHold) -> this.selectedHold(newHold);
-//        holdListView.getSelectionModel().selectedItemProperty().addListener(listenerHold);
-
-
-//    private void selectedHold(Hold newHold) {
-//        selectedHold = newHold;
-//        setDeltagere();
-//    }
-
-//    private void setDeltagere(){
-//        deltagerListView.getItems().setAll(selectedHold.getDeltagere());
-//    }
-
-//    private void selectedDeltager(Deltager newDeltager) {
-//        selectedDeltager = newDeltager;
-//        turListView.getItems().setAll(selectedDeltager.getTure());
-//
-//        deltagerLbl.setText("Valgte deltager" + selectedDeltager.getNavn());
-//        kmIAlt.setText("Km i alt: " + selectedDeltager.kmIAlt());
-//        minIAlt.setText("Min i alt: " + selectedDeltager.minIAlt());
-//    }
+        for (Cell cell : Storage.getAllCells()) {
+            Label cellLable = new Label(String.valueOf(cell.getValue()));
+            pane.add(cellLable, cell.getRow(), cell.getColumn());
+            cells.add(cellLable);
+        }
+    }
+    private void updateLabels(int index){
 
     }
 }
